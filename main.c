@@ -43,21 +43,12 @@ int main (int argc, char* argv[])
         }
     }
     
-
-    for (c = 0; c<5; c++ )
-    {    
-        printf ("%c", claves[c]);
-    }
+    
+    printf ("%s", claves[MAX_ARG]);
+    printf("\n");  
+    printf ("%s", valores[MAX_ARG]);
     printf("\n");
-    for (c = 0; c<5; c++ )
-    {    
-        printf ("%c", valores[c]);
-    }
-    printf("\n");
-    for (c = 0; c<5; c++ )
-    {    
-        printf ("%c", param[c]);
-    }
+    printf ("%s", param[MAX_ARG]);
     printf("\n");
     
     
@@ -88,9 +79,12 @@ void save (char** p, char arr[MAX_ARG], int i)
 {
     int j;
     
+        
     for (j = 0; *(p[j]) != '\0' ; j++)
     {
         arr[j] = p [i][j];
     }
+    arr[j]='\0';
 }
+
 
