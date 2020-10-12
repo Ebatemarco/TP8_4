@@ -9,20 +9,29 @@
 #include <stdlib.h>
 #define MAX_ARG 50
 
-void save (char** p, char arr[MAX_ARG], int i);
-int read (char** p, int i);
+int save (char** p, char** arr, int i, int cont); 
+/* la funcion recibe el puntero a argv, el arreglo donde se
+ * guardan las palabras, el indice que marca en que palabra del
+ * arreglo argv estamos y el indice que marca donde debe guardarse 
+ * la palabra que estamos recibiendo de argv. 
+*/
+ int read (char** p, int i);
 
 /*
  * 
  */
+void print (char** clavv, char** vall, char** parr, int par, int num);
+
+
+
 int main (int argc, char* argv[])
 {   
     int i;
     int val;
-    char claves [MAX_ARG]; // val = 0
-    char valores [MAX_ARG];// val = 1
-    char param [MAX_ARG]; // val = 2
-    int c;
+    char* claves [argc]; // val = 0
+    char* valores [argc];// val = 1
+    char* param [argc]; // val = 2
+    int contval=0, contclave=0, contparam=0;
     
     for (i = 1; i < argc; i++)
     {
@@ -30,28 +39,24 @@ int main (int argc, char* argv[])
         switch (val)
         {
             case 0:
-                save (argv, claves, i);       
+                contclave=save (argv, claves, i, contclave);       
                 break;
             case 1:
-                save (argv, valores, i);
+                contval=save (argv, valores, i, contval);
                 break;
             case 2:
-                save (argv, param, i);
+                contparam=save (argv, param, i, contparam);
                 break;
-            default:
-                break;
+	    default:
+		break;
+	
         }
+
+	
     }
-    
-    
-    printf ("%s", claves[MAX_ARG]);
-    printf("\n");  
-    printf ("%s", valores[MAX_ARG]);
-    printf("\n");
-    printf ("%s", param[MAX_ARG]);
-    printf("\n");
-    
-    
+    print (claves, valores, param, contparam, contclave);
+ 
+
     return (EXIT_SUCCESS);
 }
 
@@ -60,6 +65,7 @@ int read (char** p, int i)
     char c;
     int val;
     
+   
     if ((c = p[i][0]) == '-')
     {
         val = 0;
@@ -75,16 +81,24 @@ int read (char** p, int i)
     return val;
 }     
 
-void save (char** p, char arr[MAX_ARG], int i)
+int save (char** p, char** arr, int i, int cont) //
 {
-    int j;
-    
-        
-    for (j = 0; *(p[j]) != '\0' ; j++)
-    {
-        arr[j] = p [i][j];
-    }
-    arr[j]='\0';
+        arr[cont] = p[i]; //copia la palabra del argv al arreglo correspondiente 
+	cont++;
+        return cont;
 }
 
+void print (char** clavv, char** vall, char** parr, int par, int num)
+{
+	int op=1;
+	
+	for (op=1; op<=num; op++)
+	{
+            printf ("opcion %d: clave: %s valor: %s \n", op, clavv[op-1], vall[op-1]);
+	}
+	for (op=1; op<=par; op++)
+	{
+            printf ("parametro %d: %s \n", op, parr[op-1]);
+	}
+}
 
