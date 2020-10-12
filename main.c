@@ -22,6 +22,8 @@ int save (char** p, char** arr, int i, int cont);
  */
 void print (char** clavv, char** vall, char** parr, int par, int num);
 
+int saveclav (char** p, char** arr, int i, int cont);
+
 
 
 int main (int argc, char* argv[])
@@ -39,7 +41,7 @@ int main (int argc, char* argv[])
         switch (val)
         {
             case 0:
-                contclave=save (argv, claves, i, contclave);       
+                contclave=saveclav (argv, claves, i, contclave);       
                 break;
             case 1:
                 contval=save (argv, valores, i, contval);
@@ -87,6 +89,12 @@ int save (char** p, char** arr, int i, int cont) //
 	cont++;
         return cont;
 }
+int saveclav (char** p, char** arr, int i, int cont) //
+{
+        arr[cont] = &(p[i][1]); //copia la palabra del argv al arreglo correspondiente 
+	cont++;
+        return cont;
+}
 
 void print (char** clavv, char** vall, char** parr, int par, int num)
 {
@@ -101,4 +109,3 @@ void print (char** clavv, char** vall, char** parr, int par, int num)
             printf ("parametro %d: %s \n", op, parr[op-1]);
 	}
 }
-
